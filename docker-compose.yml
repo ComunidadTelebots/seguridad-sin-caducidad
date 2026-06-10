@@ -1,0 +1,19 @@
+services:
+  seguridad-web:
+    image: nginx:alpine
+    container_name: seguridad-web
+    restart: unless-stopped
+    volumes:
+      - ./web:/usr/share/nginx/html:ro
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.seguridad.rule=Host(`seguridad.todosobreall.tech`)"
+      - "traefik.http.routers.seguridad.entrypoints=websecure"
+      - "traefik.http.routers.seguridad.tls.certresolver=letsencrypt"
+      - "traefik.http.services.seguridad.loadbalancer.server.port=80"
+
+networks:
+  traefik:
+    external: true
