@@ -107,6 +107,20 @@
   .rescue-legend .leg-green::before{border-color:var(--acid)}
   .rescue-legend .leg-orange::before{border-color:var(--warn)}
   @media(max-width:640px){.rescue-grid{grid-template-columns:1fr}}
+  .support-form{max-width:520px;margin:36px auto 0;text-align:left}
+  .support-form .row2{display:flex;gap:12px;flex-wrap:wrap}
+  .support-form .fld{flex:1 1 200px;display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+  .support-form label{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .support-form input,.support-form select{font-family:inherit;font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:13px 14px;transition:.2s;width:100%}
+  .support-form input:focus,.support-form select:focus{outline:none;border-color:var(--acid);box-shadow:0 0 0 3px rgba(196,255,61,.12)}
+  .support-form select{appearance:none;-webkit-appearance:none;cursor:pointer}
+  .support-form .btn{width:100%;justify-content:center;margin-top:6px;border:none;cursor:pointer;font-size:15px}
+  .support-form .btn[disabled]{opacity:.55;cursor:progress}
+  .support-form .consent{font-size:12px;color:var(--muted);margin-top:14px;line-height:1.5}
+  .support-form .msg{margin-top:16px;padding:13px 16px;border-radius:10px;font-size:14px;display:none}
+  .support-form .msg.show{display:block}
+  .support-form .msg.ok{background:rgba(196,255,61,.10);border:1px solid var(--acid);color:var(--acid)}
+  .support-form .msg.err{background:rgba(255,138,61,.10);border:1px solid var(--warn);color:var(--warn)}
 </style>
 </head>
 <body>
@@ -277,9 +291,26 @@
       <h2 data-i18n="final_h2"></h2>
       <p class="section-lede" style="margin:18px auto 0" data-i18n="final_lede"></p>
       <div class="btns">
-        <a href="#" class="btn btn-primary" data-i18n="final_btn1"></a>
-        <a href="#" class="btn btn-ghost" data-i18n="final_btn2"></a>
+        <a href="#proposal" class="btn btn-ghost" data-i18n="final_btn2"></a>
       </div>
+      <form class="support-form" id="support-form" novalidate>
+        <div class="fld">
+          <label for="sf-email" data-i18n="support_email_label"></label>
+          <input type="email" id="sf-email" name="email" required autocomplete="email" data-i18n-placeholder="support_email_ph">
+        </div>
+        <div class="row2">
+          <div class="fld">
+            <label for="sf-country" data-i18n="support_country_label"></label>
+            <select id="sf-country" name="country" required>
+              <option value="" data-i18n="support_country_ph"></option>
+            </select>
+          </div>
+        </div>
+        <input type="hidden" id="sf-locale" name="locale">
+        <button type="submit" class="btn btn-primary" id="sf-submit" data-i18n="support_submit"></button>
+        <p class="consent" data-i18n="support_consent"></p>
+        <div class="msg" id="sf-msg" role="status" aria-live="polite"></div>
+      </form>
     </div>
   </div>
 </section>
@@ -325,6 +356,33 @@ const T = {
  sv:{nav_cta:"Stöd →",kicker:"Europeiskt medborgarinitiativ · utkast",h1:"Säkerhet borde inte ha ett ||utgångsdatum||.",lede:"Varje år förlorar miljontals enheter sina uppdateringar över en natt och lämnas oskyddade. Vi ber EU om **garanterade säkerhetsuppdateringar för varje operativsystem** — även det som redan finns på din enhet.",btn_support:"Stöd initiativet →",btn_read:"Läs förslaget",tag1:"1M underskrifter",tag2:"minst 7 länder",tag3:"Slut på stöd ≠ osäkert",tag4:"Frigörande av mjukvara",problem_eyebrow:"// Problemet",problem_h2:"Den nya lagen utelämnar allt du redan äger.",problem_lede:"Cyber Resilience Act kräver gratis säkerhetsuppdateringar i minst 5 år… men bara för nya produkter. All mjukvara som släppts på marknaden före den 11 december 2027 lämnas utan detta skydd. När stödet för Windows 10 upphörde i oktober 2025 lämnades miljontals fullt fungerande datorer utan en enda rättelse.",stat1_n:"5 år",stat1_p:"Minimistöd som CRA kräver… endast för nya produkter.",stat2_n:"11·12·2027",stat2_p:"Före det datumet finns ingen retroaktivitet: dagens bestånd utesluts.",stat3_n:"Okt 2025",stat3_p:"Slut på stöd för Windows 10. Användbar hårdvara blir en risk.",demands_eyebrow:"// Vad vi kräver",demands_h2:"Fem åtgärder så att säkerheten håller lika länge som enheten.",card1_title:"Retroaktivitet",card1_p:"Utöka CRA:s uppdateringskrav till mjukvara som redan finns på marknaden och stäng luckan från före 2027.",card2_title:"Minimum efter verklig livslängd",card2_p:"Säkerhetsstöd kopplat till produktens verkliga livslängd (t.ex. 10 år för ett operativsystem), oavsett försäljningsdatum.",card3_title:"Frigörandeklausul",card3_p:"När en tillverkare avslutar stödet måste den välja: fortsätta publicera gratis kritiska rättelser, **eller** frigöra det nödvändiga (specifikationer, signeringsnycklar eller källkod) så att gemenskapen kan underhålla mjukvaran säkert. Ingen måste stödja något för evigt — men man får inte heller lämna det dött och stängt.",card4_title:"Rätt till ett alternativt OS",card4_p:"Att kunna installera ett underhållet operativsystem på enheter vars ursprungliga mjukvara nått slutet av sin livslängd, utan tillverkarlås.",card5_title:"Transparens om stödets slut",card5_p:"Ett tydligt och synligt slutdatum för stödet vid köpet, inte gömt i finstilta texten.",how_eyebrow:"// Så fungerar det",how_h2:"Ett europeiskt medborgarinitiativ, steg för steg.",how_lede:"Medborgarinitiativet är verktyget som låter medborgare formellt be Europeiska kommissionen att lagstifta. Med en miljon underskrifter i minst 7 länder måste kommissionen svara och förklara vad den tänker göra.",step1_title:"Kommitté",step1_p:"7 organisatörer från 7 EU-länder registrerar initiativet hos kommissionen.",step2_title:"Registrering",step2_p:"Kommissionen kontrollerar att ämnet ligger inom dess befogenhet (max 2 månader).",step3_title:"Underskrifter",step3_p:"12 månader att samla 1M stöd, med miniminivåer per land.",step4_title:"Svar",step4_p:"När underskrifterna verifierats får kommissionen förslaget och måste ta ställning.",final_eyebrow:"// Var med",final_h2:"Din enhet fungerar. Det borde dess säkerhet också göra.",final_lede:"Stöd initiativet, dela det och hjälp oss nå en miljon underskrifter.",final_btn1:"Jag vill stödja det →",final_btn2:"Dela",footer_disclaimer:"OBS: Denna sida är ett kampanjutkast och är inte ett officiellt registrerat initiativ. Innehållet återspeglar endast organisatörernas åsikter och kan inte tolkas som Europeiska kommissionens ståndpunkt. För att ett medborgarinitiativ ska lyckas krävs 1 000 000 giltiga underskrifter i minst 7 medlemsstater; ett lyckat initiativ tvingar kommissionen att svara, men inte att lagstifta.",footer_legal:"Föreslagen rättslig grund · art. 114 FEUF",rescue_eyebrow:"Vad vi kunde rädda",rescue_h2:"Hundratals miljoner enheter skulle kunna bli säkra igen.",rescue_lede:"Föräldralös mjukvara som detta initiativ skulle kunna rädda — av tillverkaren eller, tack vare frigörandeklausulen, av gemenskapen.",rescue_block_os:"Stationära operativsystem",rescue_block_mobile:"Mobilenheter och surfplattor",rescue_block_server:"Servrar och företag",rescue_block_office:"Kontor och produktivitet",rescue_block_browser:"Webbläsare och körningsmiljöer",rescue_block_network:"Nätverk och anslutna enheter",rescue_block_av:"TV, konsoler och wearables",rescue_block_industrial:"Industriell, medicinsk och kritisk infrastruktur",rescue_block_iot:"Smart hem och IoT",rescue_btn_more:"+ Se fler kategorier",rescue_btn_less:"− Se färre",rescue_legend_green:"Tillverkaren skulle fortsätta att patcha / förlänga support",rescue_legend_orange:"Lagligt gemenskapsunderhåll tack vare frigörandeklausulen"}
 };
 
+const FORM_I18N = {
+  en:{support_email_label:"Email",support_email_ph:"you@email.eu",support_country_label:"Country",support_country_ph:"Select your country",support_submit:"I support this initiative",support_consent:"We'll only email you to confirm your support and about this initiative. No spam, unsubscribe anytime.",support_sending:"Sending…",support_ok:"Thank you! Check your inbox to confirm your support.",support_err:"Something went wrong. Please try again in a moment.",support_dupe:"This email is already registered. Thank you!"},
+  es:{support_email_label:"Correo electrónico",support_email_ph:"tu@correo.eu",support_country_label:"País",support_country_ph:"Selecciona tu país",support_submit:"Apoyo esta iniciativa",support_consent:"Solo te escribiremos para confirmar tu apoyo e informarte sobre esta iniciativa. Sin spam; puedes darte de baja cuando quieras.",support_sending:"Enviando…",support_ok:"¡Gracias! Revisa tu bandeja de entrada para confirmar tu apoyo.",support_err:"Algo ha fallado. Inténtalo de nuevo en un momento.",support_dupe:"Este correo ya está registrado. ¡Gracias!"},
+  de:{support_email_label:"E-Mail",support_email_ph:"du@email.eu",support_country_label:"Land",support_country_ph:"Wähle dein Land",support_submit:"Ich unterstütze diese Initiative",support_consent:"Wir schreiben dir nur, um deine Unterstützung zu bestätigen und über diese Initiative zu informieren. Kein Spam, jederzeit abbestellbar.",support_sending:"Wird gesendet…",support_ok:"Danke! Bitte bestätige deine Unterstützung in deinem Posteingang.",support_err:"Etwas ist schiefgelaufen. Bitte versuche es gleich noch einmal.",support_dupe:"Diese E-Mail ist bereits registriert. Danke!"},
+  fr:{support_email_label:"E-mail",support_email_ph:"vous@email.eu",support_country_label:"Pays",support_country_ph:"Choisissez votre pays",support_submit:"Je soutiens cette initiative",support_consent:"Nous vous écrirons uniquement pour confirmer votre soutien et au sujet de cette initiative. Pas de spam, désabonnement à tout moment.",support_sending:"Envoi…",support_ok:"Merci ! Vérifiez votre boîte de réception pour confirmer votre soutien.",support_err:"Une erreur s'est produite. Veuillez réessayer dans un instant.",support_dupe:"Cette adresse e-mail est déjà enregistrée. Merci !"},
+  it:{support_email_label:"Email",support_email_ph:"tu@email.eu",support_country_label:"Paese",support_country_ph:"Seleziona il tuo paese",support_submit:"Sostengo questa iniziativa",support_consent:"Ti scriveremo solo per confermare il tuo sostegno e per informarti su questa iniziativa. Niente spam, disiscrizione in qualsiasi momento.",support_sending:"Invio in corso…",support_ok:"Grazie! Controlla la tua casella di posta per confermare il tuo sostegno.",support_err:"Qualcosa è andato storto. Riprova tra un momento.",support_dupe:"Questa email è già registrata. Grazie!"},
+  pt:{support_email_label:"E-mail",support_email_ph:"voce@email.eu",support_country_label:"País",support_country_ph:"Selecione o seu país",support_submit:"Apoio esta iniciativa",support_consent:"Só lhe enviaremos e-mails para confirmar o seu apoio e sobre esta iniciativa. Sem spam, cancele quando quiser.",support_sending:"A enviar…",support_ok:"Obrigado! Verifique a sua caixa de entrada para confirmar o seu apoio.",support_err:"Algo correu mal. Tente novamente dentro de momentos.",support_dupe:"Este e-mail já está registado. Obrigado!"},
+  nl:{support_email_label:"E-mail",support_email_ph:"jij@email.eu",support_country_label:"Land",support_country_ph:"Kies je land",support_submit:"Ik steun dit initiatief",support_consent:"We mailen je alleen om je steun te bevestigen en over dit initiatief. Geen spam, altijd uitschrijven mogelijk.",support_sending:"Verzenden…",support_ok:"Bedankt! Controleer je inbox om je steun te bevestigen.",support_err:"Er is iets misgegaan. Probeer het zo opnieuw.",support_dupe:"Dit e-mailadres is al geregistreerd. Bedankt!"},
+  pl:{support_email_label:"E-mail",support_email_ph:"ty@email.eu",support_country_label:"Kraj",support_country_ph:"Wybierz swój kraj",support_submit:"Popieram tę inicjatywę",support_consent:"Napiszemy tylko, aby potwierdzić Twoje poparcie i w sprawie tej inicjatywy. Bez spamu, możesz zrezygnować w każdej chwili.",support_sending:"Wysyłanie…",support_ok:"Dziękujemy! Sprawdź skrzynkę odbiorczą, aby potwierdzić poparcie.",support_err:"Coś poszło nie tak. Spróbuj ponownie za chwilę.",support_dupe:"Ten e-mail jest już zarejestrowany. Dziękujemy!"},
+  bg:{support_email_label:"Имейл",support_email_ph:"ti@email.eu",support_country_label:"Държава",support_country_ph:"Изберете вашата държава",support_submit:"Подкрепям тази инициатива",support_consent:"Ще ви пишем само за да потвърдим подкрепата ви и относно тази инициатива. Без спам, отписване по всяко време.",support_sending:"Изпращане…",support_ok:"Благодарим! Проверете пощата си, за да потвърдите подкрепата си.",support_err:"Нещо се обърка. Опитайте отново след малко.",support_dupe:"Този имейл вече е регистриран. Благодарим!"},
+  cs:{support_email_label:"E-mail",support_email_ph:"ty@email.eu",support_country_label:"Země",support_country_ph:"Vyberte svou zemi",support_submit:"Podporuji tuto iniciativu",support_consent:"Napíšeme vám pouze pro potvrzení vaší podpory a ohledně této iniciativy. Žádný spam, kdykoli se můžete odhlásit.",support_sending:"Odesílání…",support_ok:"Děkujeme! Zkontrolujte si schránku a potvrďte svou podporu.",support_err:"Něco se pokazilo. Zkuste to prosím za chvíli znovu.",support_dupe:"Tento e-mail je již zaregistrován. Děkujeme!"},
+  da:{support_email_label:"E-mail",support_email_ph:"dig@email.eu",support_country_label:"Land",support_country_ph:"Vælg dit land",support_submit:"Jeg støtter dette initiativ",support_consent:"Vi skriver kun for at bekræfte din støtte og om dette initiativ. Ingen spam, afmeld når som helst.",support_sending:"Sender…",support_ok:"Tak! Tjek din indbakke for at bekræfte din støtte.",support_err:"Noget gik galt. Prøv igen om et øjeblik.",support_dupe:"Denne e-mail er allerede registreret. Tak!"},
+  el:{support_email_label:"Email",support_email_ph:"esy@email.eu",support_country_label:"Χώρα",support_country_ph:"Επιλέξτε τη χώρα σας",support_submit:"Υποστηρίζω αυτήν την πρωτοβουλία",support_consent:"Θα σας γράψουμε μόνο για να επιβεβαιώσουμε την υποστήριξή σας και σχετικά με αυτήν την πρωτοβουλία. Χωρίς spam, διαγραφή οποτεδήποτε.",support_sending:"Αποστολή…",support_ok:"Ευχαριστούμε! Ελέγξτε τα εισερχόμενά σας για να επιβεβαιώσετε την υποστήριξή σας.",support_err:"Κάτι πήγε στραβά. Δοκιμάστε ξανά σε λίγο.",support_dupe:"Αυτό το email είναι ήδη καταχωρισμένο. Ευχαριστούμε!"},
+  et:{support_email_label:"E-post",support_email_ph:"sina@email.eu",support_country_label:"Riik",support_country_ph:"Valige oma riik",support_submit:"Toetan seda algatust",support_consent:"Kirjutame sulle vaid toetuse kinnitamiseks ja selle algatuse kohta. Rämpsposti pole, saad igal ajal loobuda.",support_sending:"Saatmine…",support_ok:"Aitäh! Kontrolli oma postkasti, et toetust kinnitada.",support_err:"Midagi läks valesti. Palun proovi hetke pärast uuesti.",support_dupe:"See e-post on juba registreeritud. Aitäh!"},
+  fi:{support_email_label:"Sähköposti",support_email_ph:"sina@email.eu",support_country_label:"Maa",support_country_ph:"Valitse maasi",support_submit:"Tuen tätä aloitetta",support_consent:"Lähetämme sähköpostia vain vahvistaaksemme tukesi ja tästä aloitteesta. Ei roskapostia, voit peruuttaa milloin tahansa.",support_sending:"Lähetetään…",support_ok:"Kiitos! Vahvista tukesi sähköpostistasi.",support_err:"Jokin meni pieleen. Yritä hetken kuluttua uudelleen.",support_dupe:"Tämä sähköposti on jo rekisteröity. Kiitos!"},
+  ga:{support_email_label:"Ríomhphost",support_email_ph:"tu@email.eu",support_country_label:"Tír",support_country_ph:"Roghnaigh do thír",support_submit:"Tacaím leis an tionscnamh seo",support_consent:"Ní sheolfaimid ríomhphost chugat ach chun do thacaíocht a dheimhniú agus faoin tionscnamh seo. Gan turscar, díliostáil am ar bith.",support_sending:"Á sheoladh…",support_ok:"Go raibh maith agat! Seiceáil do bhosca isteach chun do thacaíocht a dheimhniú.",support_err:"Chuaigh rud éigin amú. Bain triail eile as i gceann nóiméid.",support_dupe:"Tá an ríomhphost seo cláraithe cheana féin. Go raibh maith agat!"},
+  hr:{support_email_label:"E-pošta",support_email_ph:"ti@email.eu",support_country_label:"Država",support_country_ph:"Odaberite svoju državu",support_submit:"Podržavam ovu inicijativu",support_consent:"Pisat ćemo vam samo radi potvrde vaše podrške i o ovoj inicijativi. Bez neželjene pošte, odjava u svakom trenutku.",support_sending:"Slanje…",support_ok:"Hvala! Provjerite svoju pristiglu poštu kako biste potvrdili podršku.",support_err:"Nešto je pošlo po zlu. Pokušajte ponovno za trenutak.",support_dupe:"Ova e-pošta već je registrirana. Hvala!"},
+  hu:{support_email_label:"E-mail",support_email_ph:"te@email.eu",support_country_label:"Ország",support_country_ph:"Válaszd ki az országod",support_submit:"Támogatom ezt a kezdeményezést",support_consent:"Csak a támogatásod megerősítése és e kezdeményezés ügyében írunk. Nincs spam, bármikor leiratkozhatsz.",support_sending:"Küldés…",support_ok:"Köszönjük! Erősítsd meg a támogatásod a postaládádban.",support_err:"Valami hiba történt. Próbáld újra egy pillanat múlva.",support_dupe:"Ez az e-mail már regisztrálva van. Köszönjük!"},
+  lt:{support_email_label:"El. paštas",support_email_ph:"tu@email.eu",support_country_label:"Šalis",support_country_ph:"Pasirinkite savo šalį",support_submit:"Palaikau šią iniciatyvą",support_consent:"Rašysime tik norėdami patvirtinti jūsų paramą ir apie šią iniciatyvą. Jokio šlamšto, galite atsisakyti bet kada.",support_sending:"Siunčiama…",support_ok:"Ačiū! Patikrinkite pašto dėžutę, kad patvirtintumėte paramą.",support_err:"Kažkas nepavyko. Bandykite dar kartą po akimirkos.",support_dupe:"Šis el. paštas jau užregistruotas. Ačiū!"},
+  lv:{support_email_label:"E-pasts",support_email_ph:"tu@email.eu",support_country_label:"Valsts",support_country_ph:"Izvēlieties savu valsti",support_submit:"Es atbalstu šo iniciatīvu",support_consent:"Mēs rakstīsim tikai, lai apstiprinātu jūsu atbalstu un par šo iniciatīvu. Bez surogātpasta, var atteikties jebkurā laikā.",support_sending:"Nosūta…",support_ok:"Paldies! Pārbaudiet savu e-pastu, lai apstiprinātu atbalstu.",support_err:"Kaut kas nogāja greizi. Lūdzu, mēģiniet vēlreiz pēc brīža.",support_dupe:"Šis e-pasts jau ir reģistrēts. Paldies!"},
+  mt:{support_email_label:"Email",support_email_ph:"int@email.eu",support_country_label:"Pajjiż",support_country_ph:"Agħżel pajjiżek",support_submit:"Jien nappoġġja din l-inizjattiva",support_consent:"Niktbulek biss biex nikkonfermaw l-appoġġ tiegħek u dwar din l-inizjattiva. L-ebda spam, tista' tħassar l-abbonament meta trid.",support_sending:"Qed jintbagħat…",support_ok:"Grazzi! Iċċekkja l-inbox tiegħek biex tikkonferma l-appoġġ tiegħek.",support_err:"Xi ħaġa marret ħażin. Erġa' pprova fi ftit ħin.",support_dupe:"Dan l-email diġà huwa rreġistrat. Grazzi!"},
+  ro:{support_email_label:"E-mail",support_email_ph:"tu@email.eu",support_country_label:"Țară",support_country_ph:"Selectează țara ta",support_submit:"Susțin această inițiativă",support_consent:"Îți vom scrie doar pentru a confirma susținerea ta și despre această inițiativă. Fără spam, te poți dezabona oricând.",support_sending:"Se trimite…",support_ok:"Mulțumim! Verifică-ți căsuța de e-mail pentru a confirma susținerea.",support_err:"Ceva nu a funcționat. Încearcă din nou într-o clipă.",support_dupe:"Acest e-mail este deja înregistrat. Mulțumim!"},
+  sk:{support_email_label:"E-mail",support_email_ph:"ty@email.eu",support_country_label:"Krajina",support_country_ph:"Vyberte svoju krajinu",support_submit:"Podporujem túto iniciatívu",support_consent:"Napíšeme vám len na potvrdenie vašej podpory a v súvislosti s touto iniciatívou. Žiadny spam, kedykoľvek sa môžete odhlásiť.",support_sending:"Odosiela sa…",support_ok:"Ďakujeme! Skontrolujte si schránku a potvrďte svoju podporu.",support_err:"Niečo sa pokazilo. Skúste to o chvíľu znova.",support_dupe:"Tento e-mail je už zaregistrovaný. Ďakujeme!"},
+  sl:{support_email_label:"E-pošta",support_email_ph:"ti@email.eu",support_country_label:"Država",support_country_ph:"Izberite svojo državo",support_submit:"Podpiram to pobudo",support_consent:"Pisali vam bomo le za potrditev vaše podpore in o tej pobudi. Brez neželene pošte, odjava kadar koli.",support_sending:"Pošiljanje…",support_ok:"Hvala! Preverite svoj nabiralnik in potrdite svojo podporo.",support_err:"Nekaj je šlo narobe. Poskusite znova čez trenutek.",support_dupe:"Ta e-pošta je že registrirana. Hvala!"},
+  sv:{support_email_label:"E-post",support_email_ph:"du@email.eu",support_country_label:"Land",support_country_ph:"Välj ditt land",support_submit:"Jag stöder detta initiativ",support_consent:"Vi mejlar dig bara för att bekräfta ditt stöd och om detta initiativ. Ingen spam, avsluta prenumerationen när som helst.",support_sending:"Skickar…",support_ok:"Tack! Kolla din inkorg för att bekräfta ditt stöd.",support_err:"Något gick fel. Försök igen om en stund.",support_dupe:"Den här e-postadressen är redan registrerad. Tack!"}
+};
+Object.keys(FORM_I18N).forEach(c=>{ T[c] = Object.assign({}, T[c], FORM_I18N[c]); });
 function render(s){
   return (s||"")
     .replace(/\|\|([^|]+)\|\|/g,'<span class="strike">$1</span>')
@@ -339,6 +397,11 @@ function applyLang(code){
     if(val === undefined) return;
     if(el.hasAttribute('data-html')) el.innerHTML = render(val);
     else el.textContent = val;
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    const key = el.getAttribute('data-i18n-placeholder');
+    const val = (dict[key] !== undefined) ? dict[key] : T.en[key];
+    if(val !== undefined) el.setAttribute('placeholder', val);
   });
   const sel = document.getElementById('lang');
   if(sel) sel.value = code;
@@ -371,6 +434,51 @@ function applyLang(code){
     extra.style.display=open?'none':'block';
     btn.setAttribute('data-i18n',open?'rescue_btn_more':'rescue_btn_less');
     applyLang(document.documentElement.lang);
+  });
+})();
+(function(){
+  var form = document.getElementById('support-form');
+  if(!form) return;
+  // Backend PocketBase. Producción por defecto; override con ?api=http://localhost:8090 para pruebas.
+  var API_BASE = 'https://data.righttoupdates.eu';
+  try{ var q = new URL(window.location).searchParams.get('api'); if(q) API_BASE = q.replace(/\/$/,''); }catch(e){}
+  var ENDPOINT = API_BASE + '/api/collections/supports/records';
+
+  // 27 Estados miembros de la UE (ISO-3166-1 alpha-2 + nombre).
+  var EU = [['AT','Austria'],['BE','Belgium'],['BG','Bulgaria'],['HR','Croatia'],['CY','Cyprus'],['CZ','Czechia'],['DK','Denmark'],['EE','Estonia'],['FI','Finland'],['FR','France'],['DE','Germany'],['GR','Greece'],['HU','Hungary'],['IE','Ireland'],['IT','Italy'],['LV','Latvia'],['LT','Lithuania'],['LU','Luxembourg'],['MT','Malta'],['NL','Netherlands'],['PL','Poland'],['PT','Portugal'],['RO','Romania'],['SK','Slovakia'],['SI','Slovenia'],['ES','Spain'],['SE','Sweden']];
+  var sel = document.getElementById('sf-country');
+  EU.forEach(function(c){ var o = document.createElement('option'); o.value = c[0]; o.textContent = c[1]; sel.appendChild(o); });
+
+  function t(key){ var l = document.documentElement.lang; return (T[l] && T[l][key] !== undefined) ? T[l][key] : T.en[key]; }
+  var msg = document.getElementById('sf-msg');
+  function showMsg(kind, key){ msg.textContent = t(key); msg.className = 'msg show ' + kind; }
+
+  var btn = document.getElementById('sf-submit');
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var email = document.getElementById('sf-email').value.trim();
+    var country = sel.value;
+    var locale = document.documentElement.lang;
+    document.getElementById('sf-locale').value = locale;
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ showMsg('err','support_err'); return; }
+
+    btn.disabled = true;
+    var prev = btn.textContent;
+    btn.textContent = t('support_sending');
+    msg.className = 'msg';
+
+    fetch(ENDPOINT, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ email: email, country: country, locale: locale, confirmed: false })
+    }).then(function(res){
+      if(res.ok){ showMsg('ok','support_ok'); form.reset(); return; }
+      return res.json().then(function(d){
+        var code = d && d.data && d.data.email && d.data.email.code;
+        showMsg('err', code && /not_unique|unique/.test(code) ? 'support_dupe' : 'support_err');
+      }).catch(function(){ showMsg('err','support_err'); });
+    }).catch(function(){ showMsg('err','support_err'); })
+      .then(function(){ btn.disabled = false; btn.textContent = prev; });
   });
 })();
 </script>
