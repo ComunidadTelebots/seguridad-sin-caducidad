@@ -1,0 +1,154 @@
+[
+  {
+    "id": "windows-10",
+    "name": "Windows 10"
+  },
+  {
+    "id": "windows-8-1",
+    "name": "Windows 8.1"
+  },
+  {
+    "id": "windows-7",
+    "name": "Windows 7"
+  },
+  {
+    "id": "windows-xp",
+    "name": "Windows XP"
+  },
+  {
+    "id": "macos-big-sur-catalina",
+    "name": "macOS Big Sur / Catalina"
+  },
+  {
+    "id": "ubuntu-lts-antiguas",
+    "name": "Ubuntu LTS antiguas"
+  },
+  {
+    "id": "android-sin-actualizaciones",
+    "name": "Android sin actualizaciones"
+  },
+  {
+    "id": "iphone-clasicos",
+    "name": "iPhone clásicos"
+  },
+  {
+    "id": "ipad-antiguos",
+    "name": "iPad antiguos"
+  },
+  {
+    "id": "tablets-samsung-huawei",
+    "name": "Tablets Samsung / Huawei"
+  },
+  {
+    "id": "windows-server-2008-2012",
+    "name": "Windows Server 2008/2012"
+  },
+  {
+    "id": "sql-server-antiguo",
+    "name": "SQL Server antiguo"
+  },
+  {
+    "id": "exchange-2013-2016",
+    "name": "Exchange 2013 / 2016"
+  },
+  {
+    "id": "vmware-esxi-antiguas",
+    "name": "VMware ESXi antiguas"
+  },
+  {
+    "id": "office-2013-2016-2019",
+    "name": "Office 2013 / 2016 / 2019"
+  },
+  {
+    "id": "adobe-cs6",
+    "name": "Adobe CS6"
+  },
+  {
+    "id": "quickbooks-antiguo",
+    "name": "QuickBooks antiguo"
+  },
+  {
+    "id": "autocad-antiguo",
+    "name": "AutoCAD antiguo"
+  },
+  {
+    "id": "internet-explorer-11",
+    "name": "Internet Explorer 11"
+  },
+  {
+    "id": "adobe-flash",
+    "name": "Adobe Flash"
+  },
+  {
+    "id": "java-8-11-antiguos",
+    "name": "Java 8 / 11 antiguos"
+  },
+  {
+    "id": "php-5-x-7-x",
+    "name": "PHP 5.x / 7.x"
+  },
+  {
+    "id": "routers-domesticos",
+    "name": "Routers domésticos"
+  },
+  {
+    "id": "nas-synology-qnap",
+    "name": "NAS Synology / QNAP"
+  },
+  {
+    "id": "camaras-ip",
+    "name": "Cámaras IP"
+  },
+  {
+    "id": "impresoras-conectadas",
+    "name": "Impresoras conectadas"
+  },
+  {
+    "id": "televisores-conectados",
+    "name": "Televisores conectados"
+  },
+  {
+    "id": "apple-tv-chromecast-antiguos",
+    "name": "Apple TV / Chromecast antiguos"
+  },
+  {
+    "id": "apple-watch-series-0-3",
+    "name": "Apple Watch series 0-3"
+  },
+  {
+    "id": "wii-u-3ds-ps-vita",
+    "name": "Wii U / 3DS / PS Vita"
+  },
+  {
+    "id": "scada-y-plc-antiguos",
+    "name": "SCADA y PLC antiguos"
+  },
+  {
+    "id": "equipos-medicos",
+    "name": "Equipos médicos"
+  },
+  {
+    "id": "cajeros-automaticos",
+    "name": "Cajeros automáticos"
+  },
+  {
+    "id": "coches-conectados",
+    "name": "Coches conectados"
+  },
+  {
+    "id": "termostatos-conectados",
+    "name": "Termostatos conectados"
+  },
+  {
+    "id": "cerraduras-inteligentes",
+    "name": "Cerraduras inteligentes"
+  },
+  {
+    "id": "asistentes-inteligentes",
+    "name": "Asistentes inteligentes"
+  },
+  {
+    "id": "neveras-lavadoras-hornos-wifi",
+    "name": "Neveras, lavadoras, hornos WiFi"
+  }
+]

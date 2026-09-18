@@ -135,6 +135,7 @@
   .support-form .msg.ok{background:rgba(196,255,61,.10);border:1px solid var(--acid);color:var(--acid)}
   .support-form .msg.err{background:rgba(255,138,61,.10);border:1px solid var(--warn);color:var(--warn)}
 </style>
+<link rel="stylesheet" href="community.css">
 </head>
 <body>
 <nav>
@@ -452,8 +453,8 @@ function applyLang(code){
 (function(){
   var form = document.getElementById('support-form');
   if(!form) return;
-  // Backend PocketBase. Producción por defecto; override con ?api=http://localhost:8090 para pruebas.
-  var API_BASE = 'https://data.righttoupdates.eu';
+  // Local previews use the local API; deployed pages keep the existing PocketBase service.
+  var API_BASE = ['127.0.0.1','localhost','[::1]'].indexOf(window.location.hostname) >= 0 ? '' : 'https://data.righttoupdates.eu';
   try{ var q = new URL(window.location).searchParams.get('api'); if(q) API_BASE = q.replace(/\/$/,''); }catch(e){}
   var ENDPOINT = API_BASE + '/api/collections/supports/records';
 
@@ -469,11 +470,18 @@ function applyLang(code){
   var btn = document.getElementById('sf-submit');
   form.addEventListener('submit', function(ev){
     ev.preventDefault();
+    if(btn.disabled || !form.reportValidity()) return;
     var email = document.getElementById('sf-email').value.trim();
     var country = sel.value;
     var locale = document.documentElement.lang;
     document.getElementById('sf-locale').value = locale;
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ showMsg('err','support_err'); return; }
+    var technology = document.getElementById('sf-technology');
+    var technologyId = technology ? technology.value : '';
+    if(technologyId && (!window.community || !window.community.canVote())){
+      msg.textContent = window.community ? window.community.text('unavailable') : t('support_err');
+      msg.className = 'msg show err'; return;
+    }
 
     btn.disabled = true;
     var prev = btn.textContent;
@@ -483,17 +491,26 @@ function applyLang(code){
     fetch(ENDPOINT, {
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ email: email, country: country, locale: locale, confirmed: false })
+      body: JSON.stringify(Object.assign({ email: email, country: country, locale: locale, confirmed: false }, technologyId ? {technology:technologyId} : {}))
     }).then(function(res){
-      if(res.ok){ showMsg('ok','support_ok'); form.reset(); return; }
+      if(res.ok){
+        showMsg('ok','support_ok');
+        if(window.community){
+          if(window.community.isLocal()) msg.textContent = window.community.text('localOk');
+          window.community.refresh();
+        }
+        form.reset(); return;
+      }
       return res.json().then(function(d){
         var code = d && d.data && d.data.email && d.data.email.code;
         showMsg('err', code && /not_unique|unique/.test(code) ? 'support_dupe' : 'support_err');
       }).catch(function(){ showMsg('err','support_err'); });
     }).catch(function(){ showMsg('err','support_err'); })
-      .then(function(){ btn.disabled = false; btn.textContent = prev; });
+      .then(function(){ btn.disabled = false; btn.textContent = t('support_submit'); });
   });
 })();
 </script>
+<script src="community.js"></script>
+<script src="telegram-vote.js"></script>
 </body>
 </html>
