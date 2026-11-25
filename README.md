@@ -70,7 +70,7 @@ Para activar mapa y votos en producción hay que adaptar ese servicio PocketBase
 
 Sin ese endpoint, se muestran datos no disponibles y se impide enviar una
 tecnología para evitar aparentar que se guardó un campo que el backend ignora.
-El apoyo general existente permanece disponible. `?api=...` permite apuntar
+El apoyo general existente permanece disponible. En una vista previa local, `?api=...` permite apuntar
 explícitamente a un backend de pruebas compatible.
 
 ### Cartografía
