@@ -1,8 +1,8 @@
 (() => {
   'use strict';
   const EU = 'AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE'.split(' ');
-  const local = ['127.0.0.1', 'localhost', '[::1]'].includes(location.hostname);
-  const api = new URLSearchParams(location.search).get('api')?.replace(/\/$/, '') || (local ? '' : 'https://data.righttoupdates.eu');
+  const local = campaignLocalPreview;
+  const api = campaignApiBase;
   const copy = {
     es: {
       eyebrow: '// La comunidad, país a país', title: 'Europa pide más vida para su tecnología.',

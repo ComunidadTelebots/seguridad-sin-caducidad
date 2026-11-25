@@ -340,6 +340,11 @@
 </footer>
 
 <script>
+const campaignLocalPreview = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
+const campaignApiBase = campaignLocalPreview
+  ? (new URLSearchParams(location.search).get('api') || '').replace(/\/$/, '')
+  : 'https://data.righttoupdates.eu';
+
 const LANGS = {
   bg:"Български",cs:"Čeština",da:"Dansk",de:"Deutsch",el:"Ελληνικά",en:"English",es:"Español",et:"Eesti",fi:"Suomi",fr:"Français",ga:"Gaeilge",hr:"Hrvatski",hu:"Magyar",it:"Italiano",lt:"Lietuvių",lv:"Latviešu",mt:"Malti",nl:"Nederlands",pl:"Polski",pt:"Português",ro:"Română",sk:"Slovenčina",sl:"Slovenščina",sv:"Svenska"
 };
@@ -453,10 +458,7 @@ function applyLang(code){
 (function(){
   var form = document.getElementById('support-form');
   if(!form) return;
-  // Local previews use the local API; deployed pages keep the existing PocketBase service.
-  var API_BASE = ['127.0.0.1','localhost','[::1]'].indexOf(window.location.hostname) >= 0 ? '' : 'https://data.righttoupdates.eu';
-  try{ var q = new URL(window.location).searchParams.get('api'); if(q) API_BASE = q.replace(/\/$/,''); }catch(e){}
-  var ENDPOINT = API_BASE + '/api/collections/supports/records';
+  var ENDPOINT = campaignApiBase + '/api/collections/supports/records';
 
   // 27 Estados miembros de la UE (ISO-3166-1 alpha-2 + nombre).
   var EU = [['AT','Austria'],['BE','Belgium'],['BG','Bulgaria'],['HR','Croatia'],['CY','Cyprus'],['CZ','Czechia'],['DK','Denmark'],['EE','Estonia'],['FI','Finland'],['FR','France'],['DE','Germany'],['GR','Greece'],['HU','Hungary'],['IE','Ireland'],['IT','Italy'],['LV','Latvia'],['LT','Lithuania'],['LU','Luxembourg'],['MT','Malta'],['NL','Netherlands'],['PL','Poland'],['PT','Portugal'],['RO','Romania'],['SK','Slovakia'],['SI','Slovenia'],['ES','Spain'],['SE','Sweden']];
